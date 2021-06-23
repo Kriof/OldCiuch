@@ -1,0 +1,35 @@
+﻿@using UI.Models.View
+@model HomeModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <table class="table">
+        <thead>
+            <tr class="columnHeader">
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Image</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.Items)       
+            {
+                <tr class="record">
+                    <td>@item.Title</td>
+                    <td>@item.Description</td>
+                    <td><img  src="@item.ImageUrl" />"</td>
+                    <td>@item.CategoryId</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>
