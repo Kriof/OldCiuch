@@ -1,0 +1,44 @@
+﻿@model UIPages.Models.Api.Basket
+
+@{
+    ViewData["Title"] = "AddToBasket";
+}
+
+<div class="text-center">
+    <h4>Basket</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr class="columnHeader">
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Image</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var basketItem in @Model.Items)
+            {
+                <tr class="record">
+                    <td>@basketItem.Title</td>
+                    <td>@basketItem.Description</td>
+                    <td><img  src="@basketItem.ImageUrl" />"</td>
+                    <td>@basketItem.Price</td>
+                </tr>
+
+            }
+            <td>
+                Total number of items: @Model.Items.Count()
+            </td>
+            <td>
+                Price in total: @Model.Price
+            </td>
+        </tbody>
+    </table>
+
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.BasketId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

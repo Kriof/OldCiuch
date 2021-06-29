@@ -22,17 +22,16 @@ namespace Items.Controllers
             _mapper = mapper;
         }
         // GET: ItemController
-        public ActionResult All()
+        public ActionResult GetAllItems()
         {
             var items = _itemsRepository.GetAllItems();
             return Ok(items);
         }
 
-        //// GET: ItemController/Details/5
-        //public ActionResult Details(int id)
-        //{
-            
-        //    return View();
-        //}
+        public ActionResult GetItem(int id)
+        {
+            var items = _itemsRepository.GetItemById(id);
+            return Ok(items);
+        }
     }
 }

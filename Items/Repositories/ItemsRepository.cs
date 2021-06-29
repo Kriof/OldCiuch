@@ -11,6 +11,7 @@ namespace Items.Repositories
     public interface IItemsRepository
     {
         public List<Item> GetAllItems();
+        public Item GetItemById(int id);
     }
     public class ItemsRepository : IItemsRepository
     {
@@ -20,9 +21,10 @@ namespace Items.Repositories
         {
             _itemsDbContext = itemsDbContext;
         }
-        public void GetAllItems()
+
+        public Item GetItemById(int id)
         {
-            
+            return _itemsDbContext.Items.FirstOrDefault(x => x.Id == id);
         }
 
         List<Item> IItemsRepository.GetAllItems()

@@ -1,0 +1,36 @@
+﻿@model UIPages.Models.View.ItemDetailsModel
+
+@{
+    ViewData["Title"] = "ItemDetail";
+}
+
+
+
+<div class="itemDetail">
+
+    
+    <div class="row">
+        <div class="sm-6">
+            <img src="@Model.Item.ImageUrl" />
+        </div>
+        <div class="sm-6">
+            <h2>Name: @Model.Item.Title</h2>
+            <h3>Description: @Model.Item.Description</h3>        
+            <h3>Brand: @Model.Item.Brand</h3>  
+            <h3>Color: @Model.Item.Color</h3>
+            
+            <td>
+                <a class="btn-primary" type="button" asp-controller="Baskets" asp-action="AddToBasket" asp-route-itemId="@Model.Item.Id">Add to basket</a>
+                <a class="btn-primary" type="button" asp-action="ItemDetail" asp-route-id="@Model.Item.Id">Remove from basket</a>
+            </td>
+        </div>
+    </div>
+    
+    <hr />
+    <dl class="row">
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
