@@ -1,5 +1,6 @@
 ﻿using Basket.DbContexts;
 using Basket.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Basket.Repositories
     public interface IBasketRepository
     {
         public List<Entities.Basket> GetAllBasket();
-        public Entities.Basket GetBasketById(string basketId);
+        public Entities.Basket GetBasketByUserName(string userName);
         public Entities.Basket AddProductToBasket(Entities.Basket basket, Item item);
     }
     public class BasketRepository : IBasketRepository
@@ -25,35 +26,85 @@ namespace Basket.Repositories
 
         public Entities.Basket AddProductToBasket(Entities.Basket basket, Item item)
         {
-            
-            var basketDbContxt = _basketDbContext.Basket.FirstOrDefault(x => x.BasketId == basket.BasketId);
-
-            if(!basketDbContxt.Items.Any(x => x.Id == item.Id))
+            //var basketEntity = basket;
+            using (var context = _basketDbContext)
             {
-                basketDbContxt.Items.Add(item);
-                basketDbContxt.Count = basketDbContxt.Items.Count();
-                basketDbContxt.Price = basketDbContxt.Items.Select(x => x.Price).Sum();
-                _basketDbContext.Basket.Update(basketDbContxt);
+                var basketEntity = context.Basket.Include(x => x.Items).FirstOrDefault(y => y.BasketId == basket.BasketId);
+                if (!basketEntity.Items.Any(x => x.Id == item.Id))
+                {
+
+                    basketEntity.Items.Add(item);
+
+                    basketEntity.Count = basket.Items.Count();
+                    basketEntity.Price = basket.Items.Select(x => x.Price).Sum();
+
+                    context.Basket.Update(basketEntity);
+                    //context.SaveChanges();
+
+                }
+
             }
 
-            return basketDbContxt;
+            return basket;
         }
+
+        //    if (!basketEntity.Items.Any(x => x.Id == item.Id))
+        //    {
+
+        //        basketEntity.Items.Add(item);
+
+        //        basketEntity.Count = basket.Items.Count();
+        //        basketEntity.Price = basket.Items.Select(x => x.Price).Sum();
+
+        //        _basketDbContext.Basket.Update(basketEntity);
+
+
+        //        try
+        //        {
+        //            // Attempt to save changes to the database
+        //            _basketDbContext.SaveChanges();
+
+        //        }
+        //        catch (DbUpdateConcurrencyException ex)
+        //        {
+        //            foreach (var entry in ex.Entries)
+        //            {
+        //                var test = "";
+        //            }
+        //        }
+        //        _basketDbContext.SaveChanges();
+        //    }
+
+        //    return basket;
+        //}
 
         public void GetAllBasket()
         {
             
         }
 
-        public Entities.Basket GetBasketById(string basketId)
+        public Entities.Basket GetBasketByUserName(string userName)
         {
-            var basket = _basketDbContext.Basket.FirstOrDefault(x => x.BasketId == basketId) ?? new Entities.Basket();
+            var basket = _basketDbContext.Basket.FirstOrDefault(x => x.Username == userName) ?? new Entities.Basket();
 
-            if(basket.BasketId == null)
+            bool isNew = false;
+            basket.Username = userName;
+            if (basket.BasketId == null)
             {
-                basket.BasketId = basketId;
-                _basketDbContext.Add(basket);
-                _basketDbContext.SaveChanges();
+                isNew = true;
+                basket.BasketId = Guid.NewGuid().ToString();
             }
+                
+            if (isNew)
+            {
+                _basketDbContext.Add(basket);
+            }
+            else
+            {
+                //_basketDbContext.Basket.Update(basket);
+            }
+            
+
 
             return basket;
         }

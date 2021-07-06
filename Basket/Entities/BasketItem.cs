@@ -9,6 +9,7 @@ namespace Basket.Entities
     public class BasketItem
     {
         public string BasketId { get; set; }
+        public string Username { get; set; }
         public Item Item { get; set; }
     }
 }

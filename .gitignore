@@ -8,3 +8,5 @@ UI/bin/
 UI/obj/
 UIPages/bin/
 UIPages/obj/
+Order/bin/
+ShippingDetails/bin/

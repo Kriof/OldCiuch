@@ -30,9 +30,9 @@ namespace Basket.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddToBasket(BasketItem basketItem)
+        public async Task<ActionResult> AddToBasket(BasketItem basketItem)
         {
-            var basket = _basketRepository.GetBasketById(basketItem.BasketId);
+            var basket = _basketRepository.GetBasketByUserName(basketItem.Username);
 
             basket = _basketRepository.AddProductToBasket(basket, basketItem.Item);
 

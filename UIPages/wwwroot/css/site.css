@@ -17,7 +17,7 @@ for details on configuring this project to bundle and minify static web assets. 
 
 .record td {
     text-align: center;
-    vertical-align: center;
+    vertical-align: baseline;
 }
 
 

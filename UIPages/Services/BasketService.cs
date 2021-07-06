@@ -16,7 +16,7 @@ namespace UIPages.Services
     public interface IBasketService
     {
         //public string GetCardId();
-        Task<Basket> AddProductToBasket(Item item, string basketId);
+        Task<Basket> AddProductToBasket(Item item, string username);
     }
     public class BasketService : IBasketService
     {
@@ -27,12 +27,12 @@ namespace UIPages.Services
         public string cardId = "CartId";
         private HttpClient _httpClient;
 
-        public async Task<Basket> AddProductToBasket(Item item, string basketId)
+        public async Task<Basket> AddProductToBasket(Item item, string username)
         {
             var serialized = JsonConvert.SerializeObject(new BasketItem
             {
                 Item = item,
-                BasketId = basketId
+                Username = username
             });
             HttpContent hc = new StringContent(serialized);
             hc.Headers.ContentType = new MediaTypeHeaderValue("application/json");

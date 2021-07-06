@@ -6,15 +6,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome in OldCiuch</h1>
     <table class="table">
         <thead>
             <tr class="columnHeader">
                 <th scope="col">Title</th>
                 <th scope="col">Description</th>
                 <th scope="col">Image</th>
-                <th scope="col">Action</th>
+                <th scope="col">Category</th>
             </tr>
         </thead>
 
@@ -27,7 +26,7 @@
                     <td><img  src="@item.ImageUrl" />"</td>
                     <td>@item.CategoryId</td>
                     <td>
-                        <a class="btn-primary" type="button" asp-action="ItemDetail" asp-route-id="@item.Id">PURCHASE DETAILS</a>
+                        <a class="btn-primary" type="button" asp-action="ItemDetail" asp-route-id="@item.Id">Purchase Details</a>
                     </td>
                 </tr>
             }

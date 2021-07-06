@@ -20,7 +20,15 @@ namespace Basket.DbContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
+            modelBuilder.Entity<Entities.Basket>().HasData(new Entities.Basket
+            {
+                BasketId = Guid.NewGuid().ToString(),
+                Count = 1,
+               
+                Price = 239.99m,
+                Username = "Test"
+            });
             //modelBuilder.Entity<BasketCart>().HasData(new BasketCart
             //{
             //    Brand = "Nike",

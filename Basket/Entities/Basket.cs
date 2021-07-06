@@ -17,6 +17,7 @@ namespace Basket.Entities
         }
         [Required]
         public string BasketId { get; set; }
+        public string Username { get; set; }
         [Required]
         public List<Item> Items { get; set; }
         [Required]

@@ -11,5 +11,7 @@ namespace UIPages.Models.Api
     {
         public string BasketId { get; set; }
         public Item Item { get; set; }
+        public string Username { get; set; }
+
     }
 }

@@ -35,12 +35,12 @@ namespace UIPages.Controllers
 
         public async Task<IActionResult> AddToBasket(int itemId)
         {
-            var basketId = GetBasketId();
+            var usernameId = GetBasketUsername();
             var item = await _itemsService.GetItem(itemId).ConfigureAwait(false);
             if (item == null)
                 throw new Exception("Item does not exist");
 
-            var basket = await _basketService.AddProductToBasket(item, basketId);
+            var basket = await _basketService.AddProductToBasket(item, usernameId).ConfigureAwait(false);
             return View(basket);
         }
 
@@ -51,7 +51,7 @@ namespace UIPages.Controllers
             {
                 return NotFound();
             }
-            var cartId = GetBasketId();
+            var cartId = GetBasketUsername();
 
             var basket = await _context.Basket
                 .FirstOrDefaultAsync(m => m.BasketId == cartId);
@@ -69,7 +69,7 @@ namespace UIPages.Controllers
         {
             return View();
         }
-        public string GetBasketId()
+        public string GetBasketUsername()
         {
             var currentSession = SessionHelper.Get<string>(HttpContext.Session, Constants.Session.Name);
             if (currentSession == null)
